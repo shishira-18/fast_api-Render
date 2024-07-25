@@ -12,22 +12,20 @@ from fastapi import FastAPI,UploadFile
 from image_to_text import puddle_ocr
 import sys
 from groq_api import  groq_api_response
-
+import json
 
 app = FastAPI()
 
 @app.get('/')
 def test():
-    print(f"Python executable: {sys.executable}")
-    print(f"Python version: {sys.version}")
-    return {"message":"sucess"}
+    
+    return json.loads(groq_api_response("sathish"))
 
 
 @app.post('/upload_file')
-def image_upload(file:UploadFile):
+async def image_upload(file:UploadFile):
    with open('./temp/temp.jpeg','wb') as f:
        f.write(file.file.read())
    data = puddle_ocr('./temp/temp.jpeg') 
-   return groq_api_response(data)
-  
-  
+   response =  await json.loads(groq_api_response(data))
+   return response
