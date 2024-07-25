@@ -10,9 +10,9 @@ from paddleocr import PaddleOCR
 
 
 
-ocr_model = PaddleOCR(lang= 'en',use_angle_cls=True)
 
 def puddle_ocr(image):
+    ocr_model = PaddleOCR(lang= 'en',use_angle_cls=True)
     full_string = ''
     text = ocr_model.ocr(image)
     t_0 = text[0]
