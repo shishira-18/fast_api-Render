@@ -7,11 +7,13 @@ Created on Wed Jul 24 14:18:47 2024
 """
 
 from paddleocr import PaddleOCR
-ocr_model = PaddleOCR(
+
+def load_ocr():
+    return PaddleOCR(
         lang='en',
                   drop_score=0,
-                  use_angle_cls=False,
-                  cls=False,
+                  use_angle_cls=True,
+                  cls=True  ,
                   rec_model_dir='paddle_files/default/rec/en/en_PP-OCRv3_rec_infer',
                   det_model_dir='paddle_files/default/det/en/en_PP-OCRv3_det_infer',
                   cls_model_dir='paddle_files/default/cls/ch_ppocr_mobile_v2.0_cls_infer',
@@ -27,7 +29,8 @@ ocr_model = PaddleOCR(
 def puddle_ocr(image):
 
     full_string = ''
-    text = ocr_model.ocr(image)
+    ocr_model = load_ocr()
+    text = ocr_model.ocr(image,cls= True)
     t_0 = text[0]
     for t in t_0:
         full_string+=str(t[1][0]) + "  "
