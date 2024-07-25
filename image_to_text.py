@@ -8,12 +8,7 @@ Created on Wed Jul 24 14:18:47 2024
 
 from paddleocr import PaddleOCR
 
-import warnings
-import logging
 
-logging.getLogger('ppocr').setLevel(logging.ERROR)
-
-warnings.filterwarnings("ignore", message="Since the angle classifier is not initialized, it will not be used during the forward process")
 
 ocr_model = PaddleOCR(lang= 'en',use_angle_cls=True)
 
