@@ -16,12 +16,17 @@ import json
 
 app = FastAPI()
 
-@app.get('/')
+@app.get('/test_json')
 def test():
-    
     return json.loads(groq_api_response("sathish"))
 
-
+@app.post('/test_ocr')
+def test_ocr(file:UploadFile):
+    with open('./temp/temp.jpeg','wb') as f:
+       f.write(file.file.read())
+    data = puddle_ocr('./temp/temp.jpeg') 
+    return data
+    
 @app.post('/upload_file')
 async def image_upload(file:UploadFile):
    with open('./temp/temp.jpeg','wb') as f:
